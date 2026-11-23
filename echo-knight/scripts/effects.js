@@ -1,9 +1,11 @@
+import {registerLightingSettings} from "./lighting.js";
 import {registerTokenMagicSettings} from "./tokenmagic.js";
 import {ID, flag} from "./core.js";
 export const phases = {manifest: "Manifest", swapOut: "Swap departure", swapIn: "Swap arrival", avatarOn: "Avatar enter", avatarOff: "Avatar return", recall: "Recall", destroy: "Destroyed at 0 HP"};
 export const setting = key => game.settings.get(ID, key);
 export function registerSettings() {
   registerTokenMagicSettings();
+  registerLightingSettings();
   const add = (key, name, type, value, extra = {}) => game.settings.register(ID, key, {name, scope: "world", config: true, type, default: value, ...extra});
   add("manifestRange", "Default manifest range (feet)", Number, 15);
   add("echoOpacity", "Echo opacity", Number, 0.5, {range: {min: 0.1, max: 1, step: 0.05}});

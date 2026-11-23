@@ -1,3 +1,4 @@
+import {echoLightData} from "./lighting.js";
 import {syncEchoFilter} from "./tokenmagic.js";
 import {ID, flag, actionOf, center, assertOwner, checkPlacement, rangeInScene, SerialQueue} from "./core.js";
 import {setting} from "./effects.js";
@@ -44,11 +45,13 @@ export async function handleRequest(data, user) {
       token.name = `${source.name} — Echo`;
       token.x = point.x; token.y = point.y;
       token.alpha = setting("echoOpacity");
-      token.texture = {...token.texture, tint: "#b8c4d8"};
+      token.texture = {...token.texture, tint: "#ffffff"};
       if (setting("echoTexture")) token.texture.src = setting("echoTexture");
       token.flags = {[ID]: {echo: {sourceId: source.id, userId: user.id, avatar: null}}};
       token.sight = {...token.sight, enabled: false};
-      token.light = {...token.light, dim: 0, bright: 0};
+      token.light = echoLightData();
+      token.flags[ID].untinted = true;
+      token.flags[ID].lightingDefaults = JSON.stringify(token.light);
       token.bar1 = {attribute: "attributes.hp"}; token.bar2 = {attribute: null};
       const delta = source.actor.toObject();
       delete delta._id; delete delta._stats; delete delta.prototypeToken;

@@ -1,3 +1,4 @@
+import {syncEchoLighting, enhanceLightSettings} from "./lighting.js";
 import {discoverPortfolio, effectChoices, syncSceneFilters, syncEchoFilter} from "./tokenmagic.js";
 import {ID, flag, actionOf} from "./core.js";
 import {registerSettings, playPhase, refreshGlow, refreshGlows, clearVisuals} from "./effects.js";
@@ -25,6 +26,7 @@ Hooks.once("init", registerSettings);
 Hooks.once("ready", async () => {
   registerSocket();
   await discoverPortfolio();
+  await syncEchoLighting();
   game.modules.get(ID).api = {useItem, repairCompendium: ensureCompendium};
   if (!socket) ui.notifications.error("Echo Knight requires Socketlib. Enable it and reload the world.");
   try { await ensureCompendium(); } catch (error) { report(error); }
@@ -151,3 +153,6 @@ Hooks.on("renderSettingsConfig", async (app, html) => {
   const current = select.value || game.settings.get(ID, 'tokenMagicEffect');
   select.replaceChildren(...Object.entries(effectChoices).map(([value, label]) => new Option(label, value, false, value === current)));
 });
+
+Hooks.on("canvasReady", () => { void syncEchoLighting().catch(report); });
+Hooks.on("renderSettingsConfig", (app, html) => enhanceLightSettings(html));

@@ -44,6 +44,14 @@ The dropdown also discovers Macro compendiums whose package or label identifies 
 
 The effect is persistent on the echo, separate from one-shot phase animations and the avatar glow. The active GM applies it. Settings changes update echoes on the current scene; other scenes update when the GM views them. Disabling the checkbox removes only Echo Knight's own filters. Existing custom TokenMagic filters are preserved. The normal echo opacity setting still applies, so raise it if the spectral body looks too faint.
 
+## Native echo lighting (1.0.3)
+
+The automatic gray-blue token image tint is removed. New echoes use neutral white (no image tint); existing echoes with the old module tint are migrated when the GM loads the world. The TokenMagic Spectral Body animation retains its own blue/white colors.
+
+In **Configure Settings → Echo Knight**, set the echo light's **dim radius**, **bright radius**, **emission angle**, **color** (with picker), and **color intensity**, just like the basic Light tab in Token Configuration. Radii use scene distance units. Both radii default to 0 (off), angle to 360°, color to blank, and intensity to 0.5. The animation dropdown comes from Foundry's installed light animations, with speed, intensity, and reverse controls. These are native token lights and need no effects module.
+
+Saving lighting settings updates existing echoes across scenes through the active GM. New echoes use the same defaults. You can still edit a particular echo's native Light tab, including Advanced Options; those individual edits survive reloads until you change the module lighting defaults again.
+
 ## Customization
 
 Under **Configure Settings → Echo Knight — Manifest & Swap** configure:
