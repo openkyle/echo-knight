@@ -1,5 +1,8 @@
 export const ID = "echo-knight";
-export const flag = doc => doc?.getFlag(ID, "echo");
+export function flag(value) {
+  const doc = value?.document ?? value;
+  return typeof doc?.getFlag === "function" ? doc.getFlag(ID, "echo") : undefined;
+}
 export const actionOf = item => item?.getFlag(ID, "action");
 export function distanceBetween(scene, a, b) {
   if (typeof scene.grid.measurePath === "function") return scene.grid.measurePath([a, b]).distance;

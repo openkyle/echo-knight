@@ -63,10 +63,11 @@ export function refreshGlow(token) {
   if (old && !old.destroyed) old.destroy();
   glows.delete(token.id);
   if (!canvas.ready || !token.visible) return;
-  let avatar = flag(token)?.avatar;
+  const echo = flag(token.document);
+  let avatar = echo?.avatar;
   const target = setting("glowTarget");
-  if (flag(token) && target === "knight") return;
-  if (!flag(token)) {
+  if (echo && target === "knight") return;
+  if (!echo) {
     if (target === "echo") return;
     avatar = canvas.scene.tokens.find(t => flag(t)?.sourceId === token.id && flag(t)?.avatar)?.getFlag(ID, "echo")?.avatar;
   }
