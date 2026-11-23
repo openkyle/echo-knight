@@ -36,6 +36,14 @@ Right-click either the echo or original knight:
 
 Reducing the echo's HP to 0 or below removes its scene token. If the GM was offline, cleanup runs when a GM returns to the world/scene. Manual token deletion also cleans up its generated actor. The echo need not be in combat.
 
+## TokenMagic body effect (1.0.2)
+
+Enable a V11-compatible **Token Magic FX** module. Under **Configure Settings → Echo Knight**, check **Enable TokenMagic effect on echoes** and choose **Echo TokenMagic portfolio effect**. The default is **26 – T01 – Spectral Body (liquid) — supplied preset**, using the supplied blue/white liquid parameters exactly. It is available without importing the portfolio macro.
+
+The dropdown also discovers Macro compendiums whose package or label identifies TokenMagic/TMFX, including the TokenMagic Portfolio. Select a macro with a literal `let params = [...]` (or `const`/`var`) definition. Hex colors, comments, nested animation objects, and trailing commas are supported. Macros that calculate parameters with functions or expressions are unsupported and report an error; the module never executes a portfolio macro or changes selected-token state.
+
+The effect is persistent on the echo, separate from one-shot phase animations and the avatar glow. The active GM applies it. Settings changes update echoes on the current scene; other scenes update when the GM views them. Disabling the checkbox removes only Echo Knight's own filters. Existing custom TokenMagic filters are preserved. The normal echo opacity setting still applies, so raise it if the spectral body looks too faint.
+
 ## Customization
 
 Under **Configure Settings → Echo Knight — Manifest & Swap** configure:

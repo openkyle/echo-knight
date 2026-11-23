@@ -1,3 +1,4 @@
+import {syncEchoFilter} from "./tokenmagic.js";
 import {ID, flag, actionOf, center, assertOwner, checkPlacement, rangeInScene, SerialQueue} from "./core.js";
 import {setting} from "./effects.js";
 const queue = new SerialQueue();
@@ -66,6 +67,8 @@ export async function handleRequest(data, user) {
       catch (error) { await actor.delete(); throw error; }
       // Creation succeeds before replacing the old echo.
       for (const old of echoes) await removeEcho(old);
+      try { await syncEchoFilter(created); }
+      catch (error) { console.warn(ID, error); ui.notifications.warn(`Echo created, but TokenMagic could not apply: ${error.message}`); }
       await phase(source, "manifest", [created]);
       return {echoId: created.id};
     }

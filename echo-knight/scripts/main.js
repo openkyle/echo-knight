@@ -1,3 +1,4 @@
+import {discoverPortfolio, effectChoices, syncSceneFilters, syncEchoFilter} from "./tokenmagic.js";
 import {ID, flag, actionOf} from "./core.js";
 import {registerSettings, playPhase, refreshGlow, refreshGlows, clearVisuals} from "./effects.js";
 import {handleRequest, echoesOf, manifestRange, removeEcho, setBroadcast} from "./service.js";
@@ -23,6 +24,7 @@ Hooks.once("socketlib.ready", registerSocket);
 Hooks.once("init", registerSettings);
 Hooks.once("ready", async () => {
   registerSocket();
+  await discoverPortfolio();
   game.modules.get(ID).api = {useItem, repairCompendium: ensureCompendium};
   if (!socket) ui.notifications.error("Echo Knight requires Socketlib. Enable it and reload the world.");
   try { await ensureCompendium(); } catch (error) { report(error); }
@@ -138,3 +140,14 @@ Hooks.on("canvasReady", () => { refreshGlows(); if (game.users.activeGM?.id === 
 Hooks.on("updateToken", refreshGlows);
 Hooks.on("refreshToken", refreshGlow);
 Hooks.on("canvasTearDown", () => { cancelPlacement(); clearVisuals(); });
+
+Hooks.on("drawToken", token => { void syncEchoFilter(token.document).catch(error => console.warn(ID, error)); });
+Hooks.on("canvasReady", () => { void syncSceneFilters(); });
+Hooks.on("renderSettingsConfig", async (app, html) => {
+  await discoverPortfolio();
+  const root = html[0] ?? html;
+  const select = root.querySelector('select[name="echo-knight.tokenMagicEffect"]');
+  if (!select) return;
+  const current = select.value || game.settings.get(ID, 'tokenMagicEffect');
+  select.replaceChildren(...Object.entries(effectChoices).map(([value, label]) => new Option(label, value, false, value === current)));
+});
