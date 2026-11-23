@@ -1,5 +1,8 @@
 import {ID} from "./core.js";
 export async function ensureCompendium() {
+  // The registered module pack is available without creating or changing world data.
+  const bundled = game.packs.get(`${ID}.echo-knight-features`);
+  if (bundled) return bundled;
   if (!game.user.isGM || game.users.activeGM?.id !== game.user.id) return;
   const key = "world.echo-knight-features";
   let pack = game.packs.get(key);
@@ -20,7 +23,7 @@ export async function ensureCompendium() {
       const system = {description: {value: f.description}, type: {value: "class"}, requirements: f.requirements, identifier: f.identifier};
       const activation = {type: f.activation, value: 1, cost: 1};
       const range = {value: f.action === "manifest" ? 15 : null, units: f.action === "manifest" ? "ft" : "self"};
-      Object.assign(system, {activation, range, actionType: "util", target: {type: "self"}, uses: {value: null, max: "", per: null}});
+      Object.assign(system, {activation, range, actionType: "other", target: {type: "self"}, uses: {value: null, max: "", per: null}});
       return {_id: f.id, name: f.name, type: "feat", img: f.img, system, flags: {[ID]: {action: f.action}}};
     });
     await Item.createDocuments(items, {pack: pack.collection, keepId: true});

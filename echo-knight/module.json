@@ -2,7 +2,7 @@
   "id": "echo-knight",
   "title": "Echo Knight \u2014 Manifest & Swap",
   "description": "Editable Echo Knight compendium features, ranged placement, player HUD controls, avatar glow, effects and sounds.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "authors": [
     {
       "name": "Custom Modules"
@@ -43,5 +43,18 @@
   "socket": true,
   "url": "https://github.com/openkyle/echo-knight",
   "manifest": "https://raw.githubusercontent.com/openkyle/echo-knight/main/echo-knight/module.json",
-  "download": "https://raw.githubusercontent.com/openkyle/echo-knight/main/dist/echo-knight-1.0.0-foundry-v11.zip"
+  "download": "https://raw.githubusercontent.com/openkyle/echo-knight/main/dist/echo-knight-1.0.1-foundry-v11.zip",
+  "packs": [
+    {
+      "name": "echo-knight-features",
+      "label": "Echo Knight \u2014 Features",
+      "path": "packs/echo-knight-features.db",
+      "type": "Item",
+      "system": "dnd5e",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "TRUSTED": "OBSERVER"
+      }
+    }
+  ]
 }

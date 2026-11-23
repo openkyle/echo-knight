@@ -14,7 +14,7 @@ For manual installation:
 
 1. Extract the ZIP into your Foundry user-data `Data/modules` directory. The manifest must end up at `Data/modules/echo-knight/module.json`.
 2. Restart Foundry. Enable **Socketlib** and **Echo Knight — Manifest & Swap** in your world, then reload.
-3. Open the world as GM. The module creates the **Echo Knight — Features** world compendium from its bundled item definitions. It adds missing entries without replacing existing edits.
+3. Open the world with the module enabled. The bundled **Echo Knight — Features** compendium appears in Compendium Packs. Search for “Echo Knight” if your sidebar groups it inside a folder. No startup creation step is required.
 4. Drag **Manifest Echo**, **Echo Avatar**, **Recall Echo**, and **Swap with Echo** onto the knight's sheet. Replace any old unautomated copies you intend to use. Existing similarly named items are not modified automatically.
 5. Keep a GM connected and viewing the same scene for manifest/swap validation. Players need Owner permission on their knight, but do not need token/actor creation or deletion permissions.
 
@@ -51,7 +51,7 @@ Items remain normal editable D&D5e features. Rename or edit descriptions, icons,
 
 These items intercept normal item use to perform the echo action. Bonus actions, swap's 15-foot movement cost, resource consumption, attacks, reactions, end-of-turn distance limits, avatar duration/1000-foot limit, and Legion of One are **not** automated. Effects configured on the normal item are not automatically applied by this workflow; use the module's phase settings for audiovisual effects.
 
-If initialization was interrupted, the active GM can run:
+For older installations without the bundled pack, the active GM can run this recovery command:
 
 ```js
 await game.modules.get("echo-knight").api.repairCompendium();
