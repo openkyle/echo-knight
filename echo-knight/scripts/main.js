@@ -1,3 +1,4 @@
+import {installSharedVision, migrateSharedEchoes, hideEchoActors} from "./shared-vision.js";
 import {syncEchoLighting, enhanceLightSettings} from "./lighting.js";
 import {discoverPortfolio, effectChoices, syncSceneFilters, syncEchoFilter} from "./tokenmagic.js";
 import {ID, flag, actionOf} from "./core.js";
@@ -23,6 +24,7 @@ function registerSocket() {
 }
 Hooks.once("socketlib.ready", registerSocket);
 Hooks.once("init", registerSettings);
+Hooks.once("setup", installSharedVision);
 Hooks.once("ready", async () => {
   registerSocket();
   await discoverPortfolio();
@@ -116,6 +118,7 @@ async function destroyEcho(token) {
   try { await removeEcho(token, "destroy"); } finally { deleting.delete(token.uuid); }
 }
 async function reconcile() {
+  await migrateSharedEchoes();
   for (const scene of game.scenes) for (const token of [...scene.tokens]) {
     if (!flag(token)) continue;
     if (!scene.tokens.has(flag(token).sourceId) || Number(token.actor?.system.attributes.hp.value) <= 0) await destroyEcho(token);
@@ -156,3 +159,5 @@ Hooks.on("renderSettingsConfig", async (app, html) => {
 
 Hooks.on("canvasReady", () => { void syncEchoLighting().catch(report); });
 Hooks.on("renderSettingsConfig", (app, html) => enhanceLightSettings(html));
+
+Hooks.on("renderActorDirectory", (app, html) => hideEchoActors(html));

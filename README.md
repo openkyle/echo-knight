@@ -32,7 +32,7 @@ Right-click either the echo or original knight:
 - **X:** dismiss the echo. The original knight is never deleted.
 - **Eye:** toggle Echo Avatar, when the knight has that feature.
 
-**Echo Avatar** focuses the echo and enables its sight. The activating player's color marks the occupied echo with a glow. Use again to return focus and end the glow. In settings, choose the original knight or both tokens as the glow target instead. Dismissing, destroying, or replacing the echo ends that avatar state. The original body's blindness/deafness and duration are not automatically imposed.
+**Echo Avatar** focuses the echo. Its sight remains shared before, during, and after avatar mode. The activating player's color marks the occupied echo with a glow. Use again to return focus and end the glow. In settings, choose the original knight or both tokens as the glow target instead. Dismissing, destroying, or replacing the echo ends that avatar state. The original body's blindness/deafness and duration are not automatically imposed.
 
 Reducing the echo's HP to 0 or below removes its scene token. If the GM was offline, cleanup runs when a GM returns to the world/scene. Manual token deletion also cleans up its generated actor. The echo need not be in combat.
 
@@ -51,6 +51,12 @@ The automatic gray-blue token image tint is removed. New echoes use neutral whit
 In **Configure Settings → Echo Knight**, set the echo light's **dim radius**, **bright radius**, **emission angle**, **color** (with picker), and **color intensity**, just like the basic Light tab in Token Configuration. Radii use scene distance units. Both radii default to 0 (off), angle to 360°, color to blank, and intensity to 0.5. The animation dropdown comes from Foundry's installed light animations, with speed, intensity, and reverse controls. These are native token lights and need no effects module.
 
 Saving lighting settings updates existing echoes across scenes through the active GM. New echoes use the same defaults. You can still edit a particular echo's native Light tab, including Advanced Options; those individual edits survive reloads until you change the module lighting defaults again.
+
+## Shared echo vision (1.0.4)
+
+Generated echo actors grant **Owner** permission to all players, including future players. Their vision is enabled from manifestation, using the source token's sight configuration. On player clients the echo stays a vision source even while another token is selected. Foundry walls, lighting, vision range/mode, and GM-hidden tokens still apply. This shares the echo's view; it does not grant ownership or share the original knight's view.
+
+Generated helper actors are hidden from the Actors sidebar for everyone. This is sidebar cleanup, not a permissions restriction: owners can still move/control the echo and access its sheet from the token. Swap, recall, and avatar actions still require ownership of the original knight. Existing echoes are migrated when the active GM loads the world/scene. Echo Avatar changes focus/glow and no longer switches shared vision off on return.
 
 ## Customization
 

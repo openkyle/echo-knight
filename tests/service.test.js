@@ -37,7 +37,7 @@ test('manifest creates independent 1 HP actor with ownership, token art and deri
   const result=await handleRequest(request('manifest'),owner);const echo=scene.tokens.get(result.echoId);
   assert.equal(echo.actor.system.attributes.hp.value,1);assert.equal(echo.actor.system.attributes.hp.max,1);
   assert.equal(echo.actor.system.attributes.ac.flat,17);assert.equal(source.actor.system.attributes.hp.value,24);
-  assert.deepEqual(echo.actor.ownership,{owner:3});assert.equal(echo.texture.src,'knight.png');assert.equal(echo.actorLink,true);
+  assert.deepEqual(echo.actor.ownership,{default:3,owner:3});assert.equal(echo.texture.src,'knight.png');assert.equal(echo.actorLink,true);
   assert.deepEqual(phases,['manifest']);
 });
 test('rejects non-owner, invalid item, invalid action and out of range',async()=>{
@@ -54,11 +54,11 @@ test('swap moves both tokens without moving either actor HP',async()=>{
   assert.equal(source.actor.system.attributes.hp.value,24);
   assert.deepEqual(phases,['manifest','swapOut','swapIn']);
 });
-test('avatar toggles player color and sight; recall never removes source',async()=>{
+test('avatar toggles player color while shared vision stays enabled; recall never removes source',async()=>{
   const {echoId}=await handleRequest(request('manifest'),owner);const echo=scene.tokens.get(echoId);
   assert.equal((await handleRequest(request('avatar'),owner)).focusId,echoId);
   assert.equal(echo.getFlag('echo-knight','echo').avatar.color,'#ff4400');assert.equal(echo.sight.enabled,true);
-  assert.equal((await handleRequest(request('avatar'),owner)).focusId,'source');assert.equal(echo.sight.enabled,false);
+  assert.equal((await handleRequest(request('avatar'),owner)).focusId,'source');assert.equal(echo.sight.enabled,true);
   await handleRequest(request('recall'),owner);assert.equal(scene.tokens.size,1);assert.ok(scene.tokens.has('source'));
 });
 test('re-manifest replaces old echo and refusing to remove source is safe',async()=>{

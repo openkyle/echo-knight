@@ -1,3 +1,4 @@
+import {sharedOwnership} from "./shared-vision.js";
 import {echoLightData} from "./lighting.js";
 import {syncEchoFilter} from "./tokenmagic.js";
 import {ID, flag, actionOf, center, assertOwner, checkPlacement, rangeInScene, SerialQueue} from "./core.js";
@@ -48,7 +49,7 @@ export async function handleRequest(data, user) {
       token.texture = {...token.texture, tint: "#ffffff"};
       if (setting("echoTexture")) token.texture.src = setting("echoTexture");
       token.flags = {[ID]: {echo: {sourceId: source.id, userId: user.id, avatar: null}}};
-      token.sight = {...token.sight, enabled: false};
+      token.sight = {...token.sight, enabled: true};
       token.light = echoLightData();
       token.flags[ID].untinted = true;
       token.flags[ID].lightingDefaults = JSON.stringify(token.light);
@@ -62,7 +63,7 @@ export async function handleRequest(data, user) {
       delta.system.traits.ci = {value: Object.keys(CONFIG.DND5E.conditionTypes), custom: ""};
       delta.flags = {[ID]: {generatedEcho: true}};
       delta.folder = null;
-      delta.ownership = foundry.utils.deepClone(source.actor.ownership);
+      delta.ownership = sharedOwnership(source.actor.ownership);
       const actor = await Actor.create(delta, {renderSheet: false});
       token.actorId = actor.id;
       let created;
@@ -95,7 +96,7 @@ export async function handleRequest(data, user) {
     const item = source.actor.items.get(data.itemId) ?? source.actor.items.find(i => actionOf(i) === "avatar");
     if (actionOf(item) !== "avatar") throw new Error("Add Echo Avatar from the compendium first.");
     const active = !!flag(echo).avatar;
-    await echo.update({[`flags.${ID}.echo.avatar`]: active ? null : {userId: user.id, color: String(user.color)}, "sight.enabled": active ? false : source.sight.enabled});
+    await echo.update({[`flags.${ID}.echo.avatar`]: active ? null : {userId: user.id, color: String(user.color)}, "sight.enabled": true});
     await phase(source, active ? "avatarOff" : "avatarOn", [echo]);
     return {focusId: active ? source.id : echo.id};
   });
