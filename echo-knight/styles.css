@@ -1,0 +1,4 @@
+.echo-knight-controls { display: flex; gap: 4px; align-items: center; pointer-events: auto; }
+.echo-knight-controls button { width: 36px; height: 36px; padding: 0; border: 1px solid #80d8ef; border-radius: 5px; background: #17212eee; color: white; cursor: pointer; }
+.echo-knight-controls button:hover { background: #315068; box-shadow: 0 0 7px #80d8ef; }
+.echo-knight-controls button:disabled { opacity: .5; cursor: wait; }

@@ -1,0 +1,22 @@
+[
+  {
+    "id": "echoManifest0001", "name": "Manifest Echo", "action": "manifest", "identifier": "manifest-echo", "activation": "bonus", "requirements": "Echo Knight 3",
+    "img": "icons/magic/control/silhouette-hold-change-blue.webp",
+    "description": "<p>Use this feature to choose a visible, unoccupied space within 15 feet and create your echo. The crosshair shows the allowed range. Right-click or Escape cancels placement.</p><p>The echo has independent 1 HP and AC 14 + your proficiency bonus. Right-click its token: the two arrows swap places with your knight; the X dismisses the echo. A new manifestation replaces your existing echo.</p><p>Track the bonus action and 15-foot swap movement cost normally. The module does not automate attacks, reactions, movement allowance, or end-of-turn distance limits. Edit this item normally; its automation is identified by a module flag, so renaming is safe.</p>"
+  },
+  {
+    "id": "echoAvatar000001", "name": "Echo Avatar", "action": "avatar", "identifier": "echo-avatar", "activation": "action", "requirements": "Echo Knight 7",
+    "img": "icons/magic/perception/eye-ringed-glow-angry-large-teal.webp",
+    "description": "<p>Use to enter or leave avatar mode for your manifested echo. Entering focuses the echo, enables its token vision using the knight's sight settings, and outlines the occupied body in your player color. Use again to return focus to your original body.</p><p>The GM can choose whether the glow marks the echo, original knight, or both. Duration, original-body sensory limitations, and the avatar's extended distance limit are managed at the table.</p>"
+  },
+  {
+    "id": "echoRecall000001", "name": "Recall Echo", "action": "recall", "identifier": "recall-echo", "activation": "special", "requirements": "Echo Knight",
+    "img": "icons/magic/unholy/silhouette-robe-evil-power.webp",
+    "description": "<p>Dismiss your current echo and end its avatar mode. This is also available using the X next to the swap button on either token's right-click HUD. This never deletes the original knight.</p>"
+  },
+  {
+    "id": "echoSwap00000001", "name": "Swap with Echo", "action": "swap", "identifier": "swap-with-echo", "activation": "bonus", "requirements": "Echo Knight 3",
+    "img": "icons/magic/movement/trail-streak-zigzag-teal.webp",
+    "description": "<p>Exchange positions with your manifested echo. The same action is available from the two-arrow button on the right-click token HUD.</p><p>Track the bonus action and 15 feet of movement manually.</p>"
+  }
+]
